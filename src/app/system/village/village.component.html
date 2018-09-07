@@ -1,0 +1,51 @@
+<div class="container">
+  <form #f="ngForm" (ngSubmit)="create(f)" autocomplete="off">
+    <div class="ui-g">
+      <div class="ui-g-4 ui-fluid">
+        <label>Distrito</label>
+        <p-dropdown [options]="districts" placeholder="Selecione..."
+        [(ngModel)]="selectedDistrict" name="selectedDistrict" (onChange)="loadOperationalSitesByDistrict()"
+         [filter]="true" [autoWidth]="false" required></p-dropdown>
+      </div>
+      <div class="ui-g-4 ui-fluid">
+        <label>Base Operacional</label>
+        <p-dropdown [options]="operationalSites" placeholder="Selecione..."
+         [(ngModel)]="selectedOpSite" name="selectedOpSite"
+         (onChange)="loadLocalitiesByOpsite()" [filter]="true" [autoWidth]="false" required></p-dropdown>
+      </div>
+      <div class="ui-g-4 ui-fluid">
+        <label>Localidade</label>
+        <p-dropdown [options]="localities" placeholder="Selecione..."
+        [(ngModel)]="village.locality.id" name="locality" [filter]="true"
+        [autoWidth]="false" required></p-dropdown>
+      </div>
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" [(ngModel)]="village.name"
+         #name="ngModel" required minlength="3">
+      </div>
+       <div class="ui-g-12">
+         <button pButton type="submit" icon="pi pi-check" label="Salvar" [disabled]="f.invalid"></button>
+       </div>
+    </div>
+  </form>
+  <br>
+  <p-table [value]="villages" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Distrito</th>
+        <th>Base Operacional</th>
+        <th>Localidade</th>
+        <th>Bairro</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-village>
+      <tr>
+        <td>{{ village.locality.operationalSite.district.name }}</td>
+        <td>{{ village.locality.operationalSite.name }}</td>
+        <td>{{ village.locality.name }}</td>
+        <td>{{ village.name }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

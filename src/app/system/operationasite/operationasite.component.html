@@ -1,0 +1,48 @@
+<div class="container">
+  <form #f="ngForm" (ngSubmit)="create(f)" autocomplete="off">
+    <div class="ui-g">
+      <div class="ui-g-4 ui-fluid">
+        <label>Distrito</label>
+        <p-dropdown name="district" [(ngModel)]="operationalSite.district.id"  placeholder="Selecione..."
+         [options]="districts" [autoWidth]="false" [filter]="true">
+        </p-dropdown>
+      </div>
+      <div class="ui-g-4 ui-fluid">
+        <label>Metas</label>
+        <input pInputText type="number" name="target" [(ngModel)]="operationalSite.target"
+        #target="ngModel" required minlength="2">
+      </div>
+     <div class="ui-g-4 ui-fluid">
+      <label>Nome</label>
+      <input pInputText type="text" name="name" [(ngModel)]="operationalSite.name"
+       #name="ngModel" required minlength="3">
+     </div>
+     <div class="ui-g-12">
+       <button pButton type="submit" icon="pi pi-check" label="Salvar" [disabled]="f.invalid"></button>
+     </div>
+    </div>
+  </form>
+  <p-table [value]="opsites" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Codido</th>
+        <th>Distrito</th>
+        <th>Meta</th>
+        <th>Nome</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-opsite>
+      <tr>
+        <td>{{ opsite.id }}</td>
+        <td>{{ opsite.district.name }}</td>
+        <td>{{ opsite.target }}</td>
+        <td>{{ opsite.name }}</td>
+        <td class="col-acoes">
+            <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+            <a class="separate-buttons" pButton icon="pi pi-trash" pTooltip="Remover" tooltipPosition="top"></a>
+          </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

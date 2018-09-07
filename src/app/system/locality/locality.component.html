@@ -1,0 +1,46 @@
+<div class="container">
+  <form #f="ngForm" (ngSubmit)="create(f)" autocomplete="off">
+    <div class="ui-g">
+        <div class="ui-g-4 ui-fluid">
+        <label>Distrito</label>
+        <p-dropdown name="district" [options]="districts" placeholder="Selecione..."
+         [autoWidth]="false" [filter]="true" [(ngModel)]="selectedDistrict"
+         name="selectedDistrict" (onChange)="loadOperationalSites()"></p-dropdown>
+      </div>
+      <div class="ui-g-4 ui-fluid">
+        <label>Base Operacional</label>
+        <p-dropdown name="operationalSite" [options]="operationalSites" placeholder="Selecione..."
+         [(ngModel)]="locality.operationalSite.id" [autoWidth]="false"
+         [filter]="true" [disabled]=disabilitado></p-dropdown>
+      </div>
+      <div class="ui-g-4 ui-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" [(ngModel)]="locality.name"
+        #name="ngModel" required minlength="3">
+      </div>
+      <div class="ui-g-12">
+        <button pButton type="submit"  icon="pi pi-check" label="Salvar" [disabled]="f.invalid"></button>
+      </div>
+
+    </div>
+  </form>
+  <br>
+  <p-table [value]="localities" [paginator]="true" [rows]="5" [filters]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Codigo</th>
+        <th>Distrito</th>
+        <th>Base</th>
+        <th>Nome</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-locality>
+      <tr>
+        <td>{{ locality.id }}</td>
+        <td>{{ locality.operationalSite.district.name }}</td>
+        <td>{{ locality.operationalSite.name }}</td>
+        <td>{{ locality.name }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
